@@ -5,10 +5,10 @@ namespace Player
 {
     public class PlayerMovement : MonoBehaviour, InputActions.IMovementMapActions
     {
-        [SerializeField] private float GravityAcceleration = -9.8f;
         [SerializeField] private bool IsGravityOn = true;
-
+        [SerializeField] private float GravityAcceleration = -9.8f;
         [SerializeField] private float GravityMultiplyer = 0.0001f;
+        [Space] [SerializeField] private float MovementSpeed = 1;
 
 
         private CharacterController _controller;
@@ -17,8 +17,6 @@ namespace Player
         private Vector3 _moveDirection;
         private float _velocity;
         private bool _canMove;
-
-        private const float CONSTANTSPEEDDEVIDER = 1.25f;
 
         void Start()
         {
@@ -76,8 +74,7 @@ namespace Player
         public void OnMove(InputAction.CallbackContext context)
         {
             Vector2 inputValue = context.ReadValue<Vector2>();
-            _moveDirection = new Vector3(inputValue.x, 0, inputValue.y) /
-                             CONSTANTSPEEDDEVIDER;
+            _moveDirection = new Vector3(inputValue.x, 0, inputValue.y) * MovementSpeed;
         }
     }
 }
