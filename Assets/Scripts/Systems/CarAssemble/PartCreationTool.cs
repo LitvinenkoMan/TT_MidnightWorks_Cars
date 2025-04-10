@@ -1,5 +1,7 @@
 using System;
+using Player;
 using Systems.Inventory;
+using UI;
 using UnityEngine;
 
 namespace Systems.CarAssemble
@@ -7,11 +9,15 @@ namespace Systems.CarAssemble
     public class PartCreationTool : MonoBehaviour
     {
         [Header("Dependencies")]
-        public InventorySystem inventory;
+        [SerializeField] private InventorySystem inventory;
+        [SerializeField] private GameplayPresenter presenter;
 
         [Header("Part Creation Settings")]
-        public CarPartType partType = CarPartType.Engine;
-        public int partLevel = 0;
+        [SerializeField] private CarPartType partType = CarPartType.Engine;
+        [SerializeField] private int partLevel = 0;
+
+        public CarPartType PartTypeCreation => partType;
+        public int PartLevelCreation => partLevel;
 
         [ContextMenu("Create Part")]
         public void CreatePart()
@@ -38,7 +44,23 @@ namespace Systems.CarAssemble
         public void UpgradeTool()
         {
             partLevel++;
-            Debug.Log("Tool Upgrated");
+            Debug.Log("Tool Upgraded");
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.TryGetComponent(out PlayerMovement playerMovement))
+            {
+                presenter.ShowCreationToolWindow(this);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.TryGetComponent(out PlayerMovement playerMovement))
+            {
+                presenter.HideCreationTollWindow();
+            }
         }
     }
 }

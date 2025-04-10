@@ -17,35 +17,35 @@ namespace UI
         public PartSpriteDatabase spriteDatabase; // для иконок
 
         private List<GameObject> spawnedItems = new();
-        private List<PartItemUI> PartsInUi = new();
+        private List<PartItemUI> PartsItemsUI = new();
 
         public void RefreshUI(InventorySystem inventory)
         {
             foreach (var item in spawnedItems)
                 Destroy(item);
             spawnedItems.Clear();
-            PartsInUi.Clear();
+            PartsItemsUI.Clear();
             
             foreach (var part in inventory.ownedParts)
             {
-                bool partUIItemExist = false;
-                foreach (var partUI in PartsInUi)
+                bool partItemUIExist = false;
+                foreach (var partItemUI in PartsItemsUI)
                 {
-                    if (part.PartType == partUI.PartType && part.Level == partUI.PartLevel)
+                    if (part.PartType == partItemUI.PartType && part.Level == partItemUI.PartLevel)
                     {
-                        partUI.SetItemsAmount(partUI.ItemsAmount + 1);
-                        partUIItemExist = true;
+                        partItemUI.SetItemsAmount(partItemUI.ItemsAmount + 1);
+                        partItemUIExist = true;
                         break;
                     }
                 }
 
-                if (partUIItemExist == false)
+                if (partItemUIExist == false)
                 {
                     GameObject go = Instantiate(partItemPrefab, partGridContent);
                     PartItemUI ui = go.GetComponent<PartItemUI>();
                     Sprite sprite = spriteDatabase.GetSpriteForPart(part.PartType); // по типу
                     ui.Setup(part, sprite);
-                    PartsInUi.Add(ui);
+                    PartsItemsUI.Add(ui);
                     spawnedItems.Add(go);
                 }
             }

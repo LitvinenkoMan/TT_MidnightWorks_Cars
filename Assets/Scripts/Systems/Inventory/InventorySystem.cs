@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Player;
 using UnityEngine;
 
 namespace Systems.Inventory
@@ -10,6 +11,8 @@ namespace Systems.Inventory
         public List<CarPart> ownedParts = new();
 
         public event Action OnPartAdded;
+        public event Action OnPlayerEntered;
+        public event Action OnPlayerLeave;
 
         public void AddPart(CarPart part)
         {
@@ -38,6 +41,22 @@ namespace Systems.Inventory
                 var part = ownedParts.FirstOrDefault(p => p.PartType == type && p.Level == level);
                 if (part != null)
                     ownedParts.Remove(part);
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.TryGetComponent(out PlayerMovement playerMovement))
+            {
+                OnPlayerEntered?.Invoke();
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.TryGetComponent(out PlayerMovement playerMovement))
+            {
+                OnPlayerLeave?.Invoke();
             }
         }
     }
