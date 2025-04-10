@@ -38,6 +38,7 @@ namespace Systems.CarAssemble
         public void UpgradeTool()
         {
             partLevel++;
+            Debug.Log("Tool Upgrated");
         }
     }
 }

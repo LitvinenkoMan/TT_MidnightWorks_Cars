@@ -9,7 +9,13 @@ namespace Systems.Inventory
     {
         public List<CarPart> ownedParts = new();
 
-        public void AddPart(CarPart part) => ownedParts.Add(part);
+        public event Action OnPartAdded;
+
+        public void AddPart(CarPart part)
+        {
+            ownedParts.Add(part);
+            OnPartAdded?.Invoke();
+        }
 
         public bool CanAssembleCar(int level)
         {
