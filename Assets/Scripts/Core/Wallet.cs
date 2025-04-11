@@ -14,10 +14,20 @@ namespace Core
         public event Action<int> OnMoneyChanged;
         public event Action<int> OnScrapsChanged;
 
-        public void AddMoney(int addAmount) => _money += addAmount;
+        public Wallet() { }
 
-        public void AddScraps(int addAmount) => _scraps += addAmount;
-        
+        public void AddMoney(int addAmount)
+        {
+            _money += addAmount;
+            OnMoneyChanged?.Invoke(_money);
+        }
+
+        public void AddScraps(int addAmount)
+        {
+            _scraps += addAmount;
+            OnScrapsChanged?.Invoke(_scraps);
+        }
+
         public SaveData Save()
         {
             return new SaveData(_money, _scraps);
@@ -26,7 +36,9 @@ namespace Core
         public void Load(SaveData data)
         {
             _money = data.money;
+            OnMoneyChanged?.Invoke(_money);
             _scraps = data.scraps;
+            OnScrapsChanged?.Invoke(_scraps);
         }
     }
 }

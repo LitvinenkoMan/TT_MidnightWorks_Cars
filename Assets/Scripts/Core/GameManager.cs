@@ -1,12 +1,13 @@
+using System;
 using Systems.Inventory;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Core
 {
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
+        public static event Action OnInitialized;
 
         [SerializeField] private InventorySystem inventorySystem;
         private SaveManager _saveManager;
@@ -28,6 +29,7 @@ namespace Core
         private void Start()
         {
             _saveManager.LoadGame();
+            OnInitialized?.Invoke();
         }
 
         private void OnApplicationQuit()
@@ -40,7 +42,6 @@ namespace Core
             _saveManager = new SaveManager();
             _wallet = new Wallet();
             
-            _saveManager.AddSavableObject(_wallet);
             _saveManager.AddSavableObject(inventorySystem);
         }
     }

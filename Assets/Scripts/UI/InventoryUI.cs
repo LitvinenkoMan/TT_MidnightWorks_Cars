@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class InventoryView : MonoBehaviour
+    public class InventoryUI : MonoBehaviour
     {
         [Header("UI References")]
         public GameObject partItemPrefab;

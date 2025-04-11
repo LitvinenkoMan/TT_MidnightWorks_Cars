@@ -1,6 +1,10 @@
+using System;
+using Core;
 using Data;
 using Systems.CarAssemble;
+using Systems.Economy;
 using Systems.Inventory;
+using TMPro;
 using UnityEngine;
 
 namespace UI
@@ -9,19 +13,25 @@ namespace UI
     {
         [Space(10), Header("Logic Scripts")]
         [SerializeField] private InventorySystem inventory;
+        [SerializeField] private ScrapMiner scrapMiner;
         
-        [Space(15), Header("UI Scripts")]
-        [SerializeField] private InventoryView inventoryUI;
+        [Space(10), Header("UI Scripts")]
+        [SerializeField] private InventoryUI inventoryUI;
         [SerializeField] private CreationToolUI creationToolUI;
+        [SerializeField] private ScrapMinerUI scrapMinerUI;
 
         [Space(15), Header("Data")] 
         [SerializeField] private PartSpriteDatabase spriteDatabase;
 
-            private void OnEnable()
+        private void OnEnable()
         {
             inventory.OnPartAdded += UpdateInventoryUI;
             inventory.OnPlayerEntered += ShowInventoryWindow;
             inventory.OnPlayerLeave += HideInventoryWindow;
+            
+            scrapMiner.OnPlayerEntered += ShowScrapsMinerWindow;
+            scrapMiner.OnPlayerLeave += HideScrapsMinerWindow;
+            scrapMiner.OnEarnScrapsAmountChanged += OnScrapsEarnAmountChangedResponse;
         }
 
         private void OnDisable()
@@ -29,11 +39,10 @@ namespace UI
             inventory.OnPartAdded -= UpdateInventoryUI;
             inventory.OnPlayerEntered -= ShowInventoryWindow;
             inventory.OnPlayerLeave -= HideInventoryWindow;
-        }
-
-        public void UpdateInventoryUI()
-        {
-            inventoryUI.RefreshUI(inventory);
+            
+            scrapMiner.OnPlayerEntered -= ShowScrapsMinerWindow;
+            scrapMiner.OnPlayerLeave -= HideScrapsMinerWindow;
+            scrapMiner.OnEarnScrapsAmountChanged -= OnScrapsEarnAmountChangedResponse;
         }
 
         public void ShowCreationToolWindow(PartCreationTool partCreationTool)
@@ -48,14 +57,39 @@ namespace UI
             creationToolUI.gameObject.SetActive(false);
         }
 
-        public void ShowInventoryWindow()
+        public void EarnScraps()
+        {
+            scrapMiner.EarnScraps();
+        }
+
+        private void UpdateInventoryUI()
+        {
+            inventoryUI.RefreshUI(inventory);
+        }
+
+        private void ShowInventoryWindow()
         {
             inventoryUI.gameObject.SetActive(true);
         }
 
-        public void HideInventoryWindow()
+        private void HideInventoryWindow()
         {
             inventoryUI.gameObject.SetActive(false);
+        }
+
+        private void ShowScrapsMinerWindow()
+        {
+            scrapMinerUI.gameObject.SetActive(true);
+        }
+
+        private void HideScrapsMinerWindow()
+        {
+            scrapMinerUI.gameObject.SetActive(false);
+        }
+
+        private void OnScrapsEarnAmountChangedResponse(int earnAmount)
+        {
+            scrapMinerUI.UpdateEarningAmount(earnAmount);
         }
     }
 }
