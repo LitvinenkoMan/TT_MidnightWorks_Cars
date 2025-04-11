@@ -1,3 +1,6 @@
+using System;
+
+[Serializable]
 public enum CarPartType
 {
     Engine,
@@ -9,7 +12,7 @@ public enum CarPartType
     Suspension
 }
 
-[System.Serializable]
+[Serializable]
 public class CarPart
 {
     public CarPartType PartType;

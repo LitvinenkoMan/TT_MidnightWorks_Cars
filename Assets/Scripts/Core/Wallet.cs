@@ -1,10 +1,9 @@
 using System;
 using Interfaces;
-using UnityEngine;
 
 namespace Core
 {
-    public class ResourceHolder : MonoBehaviour, ISavable
+    public class Wallet : ISavable
     {
         private int _money;
         private int _scraps;
@@ -12,10 +11,8 @@ namespace Core
         public int Money => _money;
         public int Scraps => _scraps;
 
-        private void OnEnable()
-        {
-            GameManager.Instance.resourceHolder = this;
-        }
+        public event Action<int> OnMoneyChanged;
+        public event Action<int> OnScrapsChanged;
 
         public void AddMoney(int addAmount) => _money += addAmount;
 

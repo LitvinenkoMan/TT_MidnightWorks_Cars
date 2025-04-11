@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core;
+using Interfaces;
 using Player;
 using UnityEngine;
 
 namespace Systems.Inventory
 {
-    public class InventorySystem : MonoBehaviour
+    public class InventorySystem : MonoBehaviour, ISavable
     {
         public List<CarPart> ownedParts = new();
 
@@ -58,6 +60,19 @@ namespace Systems.Inventory
             {
                 OnPlayerLeave?.Invoke();
             }
+        }
+
+        public SaveData Save()
+        {
+            var data = new SaveData();
+            data.ownedParts = ownedParts;
+            return data;
+        }
+
+        public void Load(SaveData data)
+        {
+            ownedParts = data.ownedParts;
+            OnPartAdded?.Invoke();
         }
     }
 }

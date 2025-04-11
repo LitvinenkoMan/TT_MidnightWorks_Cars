@@ -1,4 +1,6 @@
+using Systems.Inventory;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Core
 {
@@ -6,24 +8,40 @@ namespace Core
     {
         public static GameManager Instance { get; private set; }
 
-        public SaveManager saveManager;
-        public ResourceHolder resourceHolder;
+        [SerializeField] private InventorySystem inventorySystem;
+        private SaveManager _saveManager;
+        private Wallet _wallet;
+
+        public Wallet Wallet => _wallet;
+        public SaveManager SaveManager => _saveManager;
+        public InventorySystem InventorySystem => inventorySystem;
 
         private void Awake()
         {
             if (Instance != null) Destroy(gameObject);
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            
+            Initialize();
         }
 
         private void Start()
         {
-            saveManager.LoadGame();
+            _saveManager.LoadGame();
         }
 
         private void OnApplicationQuit()
         {
-            saveManager.SaveGame();
+            _saveManager.SaveGame();
+        }
+
+        private void Initialize()
+        {
+            _saveManager = new SaveManager();
+            _wallet = new Wallet();
+            
+            _saveManager.AddSavableObject(_wallet);
+            _saveManager.AddSavableObject(inventorySystem);
         }
     }
 }
