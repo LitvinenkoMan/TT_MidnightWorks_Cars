@@ -8,28 +8,28 @@ namespace UI
 {
     public class InventoryUI : MonoBehaviour
     {
-        [Header("UI References")]
-        public GameObject partItemPrefab;
-        public Transform partGridContent;
-        public GridLayoutGroup Grid;
+        [Header("UI References")] 
+        [SerializeField] private GameObject partItemPrefab;
+        [SerializeField] private Transform partGridContent; 
+        [SerializeField] private GridLayoutGroup Grid;
 
         [Header("Data")]
         public PartSpriteDatabase spriteDatabase; // для иконок
 
-        private List<GameObject> spawnedItems = new();
-        private List<PartItemUI> PartsItemsUI = new();
+        private List<GameObject> _spawnedItems = new();
+        private List<PartItemUI> _partsItemsUI = new();
 
         public void RefreshUI(InventorySystem inventory)
         {
-            foreach (var item in spawnedItems)
+            foreach (var item in _spawnedItems)
                 Destroy(item);
-            spawnedItems.Clear();
-            PartsItemsUI.Clear();
+            _spawnedItems.Clear();
+            _partsItemsUI.Clear();
             
             foreach (var part in inventory.ownedParts)
             {
                 bool partItemUIExist = false;
-                foreach (var partItemUI in PartsItemsUI)
+                foreach (var partItemUI in _partsItemsUI)
                 {
                     if (part.PartType == partItemUI.PartType && part.Level == partItemUI.PartLevel)
                     {
@@ -45,10 +45,12 @@ namespace UI
                     PartItemUI ui = go.GetComponent<PartItemUI>();
                     Sprite sprite = spriteDatabase.GetSpriteForPart(part.PartType); // по типу
                     ui.Setup(part, sprite);
-                    PartsItemsUI.Add(ui);
-                    spawnedItems.Add(go);
+                    _partsItemsUI.Add(ui);
+                    _spawnedItems.Add(go);
                 }
             }
         }
+        
+        //TODO: make content stretch for items in inventory
     }
 }

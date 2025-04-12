@@ -1,14 +1,16 @@
+using Systems.CarAssemble;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
 {
     public class PartItemUI : MonoBehaviour
     {
-        [SerializeField] public Image icon;
-        [SerializeField] public TMP_Text levelText;
-        [SerializeField] public TMP_Text AmountText;
+        [SerializeField] private Image icon;
+        [SerializeField] private TMP_Text levelText;
+        [SerializeField] private TMP_Text amountText;
 
         public CarPartType PartType { get; private set; }
         public int PartLevel { get; private set; }
@@ -18,7 +20,7 @@ namespace UI
         {
             icon.sprite = sprite;
             levelText.text = $"Lv. {part.Level}";
-            AmountText.text = $"x1";
+            amountText.text = $"x1";
             PartType = part.PartType;
             PartLevel = part.Level;
             ItemsAmount = 1;
@@ -27,7 +29,7 @@ namespace UI
         public void SetItemsAmount(int amount)
         {
             ItemsAmount = amount;
-            AmountText.text = $"x{ItemsAmount}";
+            amountText.text = $"x{ItemsAmount}";
         }
     }
 }

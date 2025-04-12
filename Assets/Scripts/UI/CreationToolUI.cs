@@ -1,6 +1,7 @@
 using Systems.CarAssemble;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
@@ -13,20 +14,28 @@ namespace UI
         [SerializeField] private TMP_Text levelText;
         [SerializeField] private TMP_Text levelUpgradeText;
         
-        [SerializeField] private Button CreatePartButton;
-        [SerializeField] private Button UpgradeButton;
+        [SerializeField] private Button createPartButton;
+        [SerializeField] private Button upgradeButton;
+
+        private PartCreationTool _currentCreationTool;
 
         public void Setup(PartCreationTool creationTool, Sprite sprite)
         {
-            CreatePartButton.onClick.RemoveAllListeners();
-            UpgradeButton.onClick.RemoveAllListeners();
+            _currentCreationTool = creationTool;
+            createPartButton.onClick.RemoveAllListeners();
+            upgradeButton.onClick.RemoveAllListeners();
             
             icon.sprite = sprite;
-            levelText.text = $"Lv. {creationTool.PartLevelCreation}";
-            levelUpgradeText.text = $"Lv. {creationTool.PartLevelCreation +1}";
             targeter.SetNewTarget(creationTool.gameObject.transform);
-            CreatePartButton.onClick.AddListener(creationTool.CreatePart);
-            UpgradeButton.onClick.AddListener(creationTool.UpgradeTool);
+            createPartButton.onClick.AddListener(creationTool.CreatePart);
+            upgradeButton.onClick.AddListener(creationTool.UpgradeTool);
+            upgradeButton.onClick.AddListener(UpdateTextUI);
+        }
+
+        public void UpdateTextUI()
+        {
+            levelText.text = $"Lv. {_currentCreationTool.PartLevelCreation}";
+            levelUpgradeText.text = $"Lv. {_currentCreationTool.PartLevelCreation +1}";
         }
     }
 }

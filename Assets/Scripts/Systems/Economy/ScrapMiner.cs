@@ -8,7 +8,7 @@ namespace Systems.Economy
     public class ScrapMiner : MonoBehaviour
     {
         [Header("Reward Settings")]
-        private int scrapEarnAmount = 10;
+        [SerializeField] private int scrapEarnAmount = 10;
         
         public event Action OnPlayerEntered;
         public event Action OnPlayerLeave;
@@ -38,7 +38,6 @@ namespace Systems.Economy
         public void EarnScraps()
         {
            GameManager.Instance.Wallet.AddScraps(scrapEarnAmount);
-           
         }
 
         public void SetNewEarnAmount(int newEarnAmount)

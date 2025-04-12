@@ -14,7 +14,10 @@ namespace Core
         public event Action<int> OnMoneyChanged;
         public event Action<int> OnScrapsChanged;
 
-        public Wallet() { }
+        public Wallet()
+        {
+            GameManager.Instance.SaveManager.AddSavableObject(this);
+        }
 
         public void AddMoney(int addAmount)
         {

@@ -10,6 +10,7 @@ namespace Core
         public static event Action OnInitialized;
 
         [SerializeField] private InventorySystem inventorySystem;
+        
         private SaveManager _saveManager;
         private Wallet _wallet;
 
@@ -41,8 +42,6 @@ namespace Core
         {
             _saveManager = new SaveManager();
             _wallet = new Wallet();
-            
-            _saveManager.AddSavableObject(inventorySystem);
         }
     }
 }

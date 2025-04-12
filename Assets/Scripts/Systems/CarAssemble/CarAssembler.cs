@@ -15,8 +15,6 @@ namespace Systems.CarAssemble
                 List<CarPart> partsUsed = inventory.GetPartsForAssembly(level);
                 inventory.RemovePartsForAssembly(level);
 
-                // Создание машины:
-                //Car newCar = new Car(level);
                 Debug.Log($"Car assembled at level {level}!");
 
                 // Можно начислить игроку награду, деньги, опыт и т.п.

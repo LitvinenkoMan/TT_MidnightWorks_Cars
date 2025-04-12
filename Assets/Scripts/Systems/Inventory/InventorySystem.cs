@@ -4,6 +4,7 @@ using System.Linq;
 using Core;
 using Interfaces;
 using Player;
+using Systems.CarAssemble;
 using UnityEngine;
 
 namespace Systems.Inventory
@@ -15,6 +16,11 @@ namespace Systems.Inventory
         public event Action OnPartAdded;
         public event Action OnPlayerEntered;
         public event Action OnPlayerLeave;
+
+        private void Start()
+        {
+            GameManager.Instance.SaveManager.AddSavableObject(this);
+        }
 
         public void AddPart(CarPart part)
         {

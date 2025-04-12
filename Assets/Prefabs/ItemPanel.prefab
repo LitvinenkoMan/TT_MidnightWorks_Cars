@@ -438,4 +438,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 7114324487415262534}
   levelText: {fileID: 6515096923235845039}
-  AmountText: {fileID: 142817100197176681}
+  amountText: {fileID: 142817100197176681}

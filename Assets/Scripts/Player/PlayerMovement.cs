@@ -8,9 +8,8 @@ namespace Player
         [SerializeField] private bool IsGravityOn = true;
         [SerializeField] private float GravityAcceleration = -9.8f;
         [SerializeField] private float GravityMultiplyer = 0.0001f;
-        [Space] [SerializeField] private float MovementSpeed = 1;
-
-
+        [SerializeField] private float MovementSpeed = 1;
+        
         private CharacterController _controller;
         private InputActions _input;
 

@@ -1,28 +1,31 @@
 using System;
 
-[Serializable]
-public enum CarPartType
+namespace Systems.CarAssemble
 {
-    Engine,
-    Wheels,
-    Transmission,
-    Electronics,
-    Body,
-    SteeringSystem,
-    Suspension
-}
-
-[Serializable]
-public class CarPart
-{
-    public CarPartType PartType;
-    public int Level;
-
-    public CarPart(CarPartType type, int level)
+    [Serializable]
+    public enum CarPartType
     {
-        PartType = type;
-        Level = level;
+        Engine,
+        Wheels,
+        Transmission,
+        Electronics,
+        Body,
+        SteeringSystem,
+        Suspension
     }
 
-    public string GetID() => $"{PartType}_L{Level}";
+    [Serializable]
+    public class CarPart
+    {
+        public CarPartType PartType;
+        public int Level;
+
+        public CarPart(CarPartType type, int level)
+        {
+            PartType = type;
+            Level = level;
+        }
+
+        public string GetID() => $"{PartType}_L{Level}";
+    }
 }

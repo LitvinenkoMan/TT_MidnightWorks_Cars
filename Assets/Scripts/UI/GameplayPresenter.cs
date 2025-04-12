@@ -49,6 +49,7 @@ namespace UI
         {
             Sprite sprite = spriteDatabase.GetSpriteForPart(partCreationTool.PartTypeCreation);
             creationToolUI.Setup(partCreationTool, sprite);
+            creationToolUI.UpdateTextUI();
             creationToolUI.gameObject.SetActive(true);
         }
 

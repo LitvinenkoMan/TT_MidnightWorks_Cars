@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Interfaces;
+using Systems.CarAssemble;
 using UnityEngine;
 
 namespace Core

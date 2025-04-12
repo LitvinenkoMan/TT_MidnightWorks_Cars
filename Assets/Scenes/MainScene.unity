@@ -2315,8 +2315,8 @@ MonoBehaviour:
   icon: {fileID: 7618815312806536325}
   levelText: {fileID: 5866526094675053164}
   levelUpgradeText: {fileID: 602667302}
-  CreatePartButton: {fileID: 8391982187577511411}
-  UpgradeButton: {fileID: 386280419}
+  createPartButton: {fileID: 8391982187577511411}
+  upgradeButton: {fileID: 386280419}
 --- !u!114 &426543147
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,27 +24,23 @@ namespace Systems.CarAssemble
         {
             var newPart = new CarPart(partType, partLevel);
             inventory.AddPart(newPart);
-            Debug.Log($"✅ Created and added part: {partType} level {partLevel}");
         }
 
-        [ContextMenu("Create Full Set")]
-        public void CreateFullSet()
-        {
-            foreach (CarPartType type in Enum.GetValues(typeof(CarPartType)))
-            {
-                var part = new CarPart(type, partLevel);
-                inventory.AddPart(part);
-                Debug.Log($"✅ Created {type} L{partLevel}");
-            }
-
-            Debug.Log("✅ Full set of parts added to inventory.");
-        }
+        // [ContextMenu("Create Full Set")]    // For Debugging
+        // public void CreateFullSet()
+        // {
+        //     foreach (CarPartType type in Enum.GetValues(typeof(CarPartType)))
+        //     {
+        //         var part = new CarPart(type, partLevel);
+        //         inventory.AddPart(part);
+        //     }
+        //
+        // }
 
         [ContextMenu("Upgrade Tool")]
         public void UpgradeTool()
         {
             partLevel++;
-            Debug.Log("Tool Upgraded");
         }
 
         private void OnTriggerEnter(Collider other)
