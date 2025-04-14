@@ -67,6 +67,7 @@ namespace Systems.Inventory
                 if (part != null)
                     ownedParts.Remove(part);
             }
+            OnInventoryUpdated?.Invoke();
         }
 
         private void OnTriggerEnter(Collider other)

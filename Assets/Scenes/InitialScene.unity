@@ -97,7 +97,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000002, guid: 009ce9a76b7fd8a4aaa72df23d4029a1, type: 2}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 59e2ae323b4333d44a33996af3fcb06f, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -227,7 +227,7 @@ MonoBehaviour:
   UseMainIfDataIsNull: 0
   UnloadInsteadOfLoading: 0
   LoadSceneAsync: 1
-  LoadOnStart: 1
+  LoadOnStart: 0
   OnScenLoaded:
     m_PersistentCalls:
       m_Calls:
@@ -246,9 +246,78 @@ MonoBehaviour:
   OnScenUnloaded:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1855448855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1855448857}
+  - component: {fileID: 1855448856}
+  m_Layer: 0
+  m_Name: LoadVisuals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1855448856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855448855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b637728fe1700f43b43d18f91d755ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneName: SimplePoly City - Low Poly Assets_Demo Scene
+  MakeItMain: 0
+  UseMainIfDataIsNull: 0
+  UnloadInsteadOfLoading: 0
+  LoadSceneAsync: 1
+  LoadOnStart: 1
+  OnScenLoaded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1459582326}
+        m_TargetAssemblyTypeName: Core.SceneLoader, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnScenUnloaded:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1855448857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855448855}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1855448857}
   - {fileID: 1459582325}
   - {fileID: 340897641}
