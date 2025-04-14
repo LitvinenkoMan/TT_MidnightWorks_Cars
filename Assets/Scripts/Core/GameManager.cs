@@ -7,7 +7,6 @@ namespace Core
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
-        public static event Action OnInitialized;
 
         [SerializeField] private InventorySystem inventorySystem;
         
@@ -17,6 +16,8 @@ namespace Core
         public Wallet Wallet => _wallet;
         public SaveManager SaveManager => _saveManager;
         public InventorySystem InventorySystem => inventorySystem;
+        
+        public static event Action OnInitialized;
 
         private void Awake()
         {

@@ -18,15 +18,15 @@ namespace Core
         [SerializeField] private bool UnloadInsteadOfLoading;
         [SerializeField] private bool LoadSceneAsync = true;
         [SerializeField] private bool LoadOnStart;
-    
-    
+
         [Space(10)]
         [SerializeField] private UnityEvent<string> OnScenLoaded;
         [SerializeField] private UnityEvent<string> OnScenUnloaded;
-        private Action<AsyncOperation> OnScenLoadedAction;
-        private Action<AsyncOperation> OnScenUnloadedAction;
-
+        
         private string _activeUnloadedSceneName;
+        
+        private event Action<AsyncOperation> OnSceneLoadedAction;
+        private event Action<AsyncOperation> OnSceneUnloadedAction;
 
         void Start()
         {
@@ -38,14 +38,14 @@ namespace Core
 
         private void OnEnable()
         {
-            OnScenLoadedAction += SceneLoaded;
-            OnScenUnloadedAction += SceneUnloaded;
+            OnSceneLoadedAction += SceneLoaded;
+            OnSceneUnloadedAction += SceneUnloaded;
         }
 
         private void OnDisable()
         {
-            OnScenLoadedAction -= SceneLoaded;
-            OnScenUnloadedAction -= SceneUnloaded;
+            OnSceneLoadedAction -= SceneLoaded;
+            OnSceneUnloadedAction -= SceneUnloaded;
         }
 
         public void LoadScene()
@@ -63,16 +63,16 @@ namespace Core
                 if (UseMainIfDataIsNull)
                 {
                     _activeUnloadedSceneName = SceneManager.GetActiveScene().name;
-                    SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene()).completed += OnScenUnloadedAction;
+                    SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene()).completed += OnSceneUnloadedAction;
                 }
                 else if (SceneManager.GetSceneByName(SceneName) != null)
-                    SceneManager.UnloadSceneAsync(SceneName, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects).completed += OnScenUnloadedAction;
+                    SceneManager.UnloadSceneAsync(SceneName, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects).completed += OnSceneUnloadedAction;
             }
             else
             {
                 if (LoadSceneAsync)
                 {
-                    SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive).completed += OnScenLoadedAction;
+                    SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive).completed += OnSceneLoadedAction;
                 }
                 else
                 {

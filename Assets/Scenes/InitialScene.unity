@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b637728fe1700f43b43d18f91d755ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: SimplePoly City - Low Poly Assets_Demo Scene
+  SceneName: SimplePoly
   MakeItMain: 0
   UseMainIfDataIsNull: 0
   UnloadInsteadOfLoading: 0

@@ -16,8 +16,8 @@ namespace UI
         [Header("Data")]
         public PartSpriteDatabase spriteDatabase; // для иконок
 
-        private List<SellingItemPanelUI> _sellingItemsUI = new List<SellingItemPanelUI>();
-        private List<GameObject> _spawnedItems = new List<GameObject>();
+        private List<SellingItemPanelUI> _sellingItemsUI = new();
+        private List<GameObject> _spawnedItems = new();
 
         private void OnEnable()
         {

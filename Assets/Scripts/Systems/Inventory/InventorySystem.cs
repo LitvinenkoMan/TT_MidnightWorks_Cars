@@ -40,11 +40,6 @@ namespace Systems.Inventory
             OnInventoryUpdated?.Invoke();
         }
 
-        public List<CarPart> GetAllParts()
-        {
-            return ownedParts;
-        }
-
         public bool CanAssembleCar(int level)
         {
             return Enum.GetValues(typeof(CarPartType)).Cast<CarPartType>()

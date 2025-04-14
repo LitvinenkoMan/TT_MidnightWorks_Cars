@@ -15,12 +15,9 @@ namespace Player
 
         private Vector3 _moveDirection;
         private float _velocity;
-        private bool _canMove;
 
         void Start()
         {
-            _canMove = true;
-            
             if (_input == null)
             {
                 _input = new InputActions();
@@ -64,12 +61,7 @@ namespace Player
             }
             else _velocity = 0;
         }
-
-        public void SetAbilityToMove(bool canIt)
-        {
-            _canMove = canIt;
-        }
-
+        
         public void OnMove(InputAction.CallbackContext context)
         {
             Vector2 inputValue = context.ReadValue<Vector2>();
