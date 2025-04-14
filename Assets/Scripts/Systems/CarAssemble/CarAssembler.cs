@@ -63,7 +63,7 @@ namespace Systems.CarAssemble
             
             _inventory.RemovePartsForAssembly(level);
 
-            GameObject newCar = Instantiate(carPrefabsByLevel[level], spot.GetParkingPosition(), spot.GetParkingRotation());
+            GameObject newCar = Instantiate(carPrefabsByLevel[level-1], spot.GetParkingPosition(), spot.GetParkingRotation());
             Car car = newCar.GetComponent<Car>();
             
             int totalPrice = 0;
@@ -75,7 +75,6 @@ namespace Systems.CarAssemble
             car.Initialize(parts, level, totalPrice);
 
             spot.Occupy();
-            Debug.Log($"Машина уровня {level} успешно собрана и размещена на парковке.");
         }
 
         private bool HasAllRequiredParts(List<CarPart> parts)
