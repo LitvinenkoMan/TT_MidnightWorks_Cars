@@ -21,14 +21,38 @@ namespace Core
 
         public void AddMoney(int addAmount)
         {
+            if (addAmount < 0) return;
+            
             _money += addAmount;
             OnMoneyChanged?.Invoke(_money);
+        }
+
+        public bool SpendMoney(int spendAmount)
+        {
+            if (_money >= spendAmount)
+            {
+                _money -= spendAmount;
+                OnMoneyChanged?.Invoke(_money);
+                return true;
+            }
+            return false;
         }
 
         public void AddScraps(int addAmount)
         {
             _scraps += addAmount;
             OnScrapsChanged?.Invoke(_scraps);
+        }
+
+        public bool SpendScraps(int spendAmount)
+        {
+            if (_scraps >= spendAmount)
+            {
+                _scraps -= spendAmount;
+                OnScrapsChanged?.Invoke(_scraps);
+                return true;
+            }
+            return false;
         }
 
         public SaveData Save()

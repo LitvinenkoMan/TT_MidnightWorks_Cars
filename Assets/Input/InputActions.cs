@@ -162,6 +162,34 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UIMap"",
+            ""id"": ""1b542362-14c4-4929-b60d-7b2295478ebe"",
+            ""actions"": [
+                {
+                    ""name"": ""Quit"",
+                    ""type"": ""Button"",
+                    ""id"": ""bf74ab1a-9f91-4ae1-ae15-79d73b86953b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""986f01d3-adc9-444e-88be-1fb3849b55cd"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -180,12 +208,16 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_InteractionMap_HoldReleased = m_InteractionMap.FindAction("HoldReleased", throwIfNotFound: true);
         m_InteractionMap_HoldStart = m_InteractionMap.FindAction("HoldStart", throwIfNotFound: true);
         m_InteractionMap_Click = m_InteractionMap.FindAction("Click", throwIfNotFound: true);
+        // UIMap
+        m_UIMap = asset.FindActionMap("UIMap", throwIfNotFound: true);
+        m_UIMap_Quit = m_UIMap.FindAction("Quit", throwIfNotFound: true);
     }
 
     ~@InputActions()
     {
         UnityEngine.Debug.Assert(!m_MovementMap.enabled, "This will cause a leak and performance issues, InputActions.MovementMap.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_InteractionMap.enabled, "This will cause a leak and performance issues, InputActions.InteractionMap.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_UIMap.enabled, "This will cause a leak and performance issues, InputActions.UIMap.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -351,6 +383,52 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         }
     }
     public InteractionMapActions @InteractionMap => new InteractionMapActions(this);
+
+    // UIMap
+    private readonly InputActionMap m_UIMap;
+    private List<IUIMapActions> m_UIMapActionsCallbackInterfaces = new List<IUIMapActions>();
+    private readonly InputAction m_UIMap_Quit;
+    public struct UIMapActions
+    {
+        private @InputActions m_Wrapper;
+        public UIMapActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Quit => m_Wrapper.m_UIMap_Quit;
+        public InputActionMap Get() { return m_Wrapper.m_UIMap; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIMapActions set) { return set.Get(); }
+        public void AddCallbacks(IUIMapActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIMapActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIMapActionsCallbackInterfaces.Add(instance);
+            @Quit.started += instance.OnQuit;
+            @Quit.performed += instance.OnQuit;
+            @Quit.canceled += instance.OnQuit;
+        }
+
+        private void UnregisterCallbacks(IUIMapActions instance)
+        {
+            @Quit.started -= instance.OnQuit;
+            @Quit.performed -= instance.OnQuit;
+            @Quit.canceled -= instance.OnQuit;
+        }
+
+        public void RemoveCallbacks(IUIMapActions instance)
+        {
+            if (m_Wrapper.m_UIMapActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIMapActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIMapActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIMapActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIMapActions @UIMap => new UIMapActions(this);
     private int m_PlayerSchemeSchemeIndex = -1;
     public InputControlScheme PlayerSchemeScheme
     {
@@ -369,5 +447,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnHoldReleased(InputAction.CallbackContext context);
         void OnHoldStart(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
+    }
+    public interface IUIMapActions
+    {
+        void OnQuit(InputAction.CallbackContext context);
     }
 }

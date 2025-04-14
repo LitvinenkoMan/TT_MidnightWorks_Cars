@@ -25,6 +25,7 @@ namespace Core
             DontDestroyOnLoad(gameObject);
             
             Initialize();
+            Debug.Log(Application.persistentDataPath);
         }
 
         private void Start()

@@ -14,7 +14,9 @@ namespace Systems.CarAssemble
 
         [Header("Part Creation Settings")]
         [SerializeField] private CarPartType partType = CarPartType.Engine;
-        [SerializeField] private int partLevel = 0;
+        [SerializeField] private int partLevel;
+        [SerializeField] private int maxPartLevel = 7;
+        [SerializeField] private int partPrice = 0;
 
         public CarPartType PartTypeCreation => partType;
         public int PartLevelCreation => partLevel;
@@ -22,7 +24,7 @@ namespace Systems.CarAssemble
         [ContextMenu("Create Part")]
         public void CreatePart()
         {
-            var newPart = new CarPart(partType, partLevel);
+            var newPart = new CarPart(partType, partLevel, partPrice);
             inventory.AddPart(newPart);
         }
 
@@ -40,7 +42,8 @@ namespace Systems.CarAssemble
         [ContextMenu("Upgrade Tool")]
         public void UpgradeTool()
         {
-            partLevel++;
+            if (partLevel < maxPartLevel)
+                partLevel++;
         }
 
         private void OnTriggerEnter(Collider other)

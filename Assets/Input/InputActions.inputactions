@@ -140,6 +140,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UIMap",
+            "id": "1b542362-14c4-4929-b60d-7b2295478ebe",
+            "actions": [
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "bf74ab1a-9f91-4ae1-ae15-79d73b86953b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "986f01d3-adc9-444e-88be-1fb3849b55cd",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

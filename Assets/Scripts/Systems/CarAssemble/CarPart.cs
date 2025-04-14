@@ -19,6 +19,7 @@ namespace Systems.CarAssemble
     {
         public CarPartType PartType;
         public int Level;
+        public int SellPrice;
 
         public CarPart(CarPartType type, int level)
         {
@@ -26,6 +27,11 @@ namespace Systems.CarAssemble
             Level = level;
         }
 
-        public string GetID() => $"{PartType}_L{Level}";
+        public CarPart(CarPartType type, int level, int price)
+        {
+            PartType = type;
+            Level = level;
+            SellPrice = price;
+        }
     }
 }

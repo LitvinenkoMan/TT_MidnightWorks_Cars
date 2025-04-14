@@ -25,7 +25,7 @@ namespace UI
 
         private void OnEnable()
         {
-            inventory.OnPartAdded += UpdateInventoryUI;
+            inventory.OnInventoryUpdated += UpdateInventoryUI;
             inventory.OnPlayerEntered += ShowInventoryWindow;
             inventory.OnPlayerLeave += HideInventoryWindow;
             
@@ -36,7 +36,7 @@ namespace UI
 
         private void OnDisable()
         {
-            inventory.OnPartAdded -= UpdateInventoryUI;
+            inventory.OnInventoryUpdated -= UpdateInventoryUI;
             inventory.OnPlayerEntered -= ShowInventoryWindow;
             inventory.OnPlayerLeave -= HideInventoryWindow;
             

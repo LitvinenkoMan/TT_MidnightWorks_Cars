@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core;
 using Data;
 using Systems.Inventory;
 using UnityEngine;
@@ -10,8 +11,8 @@ namespace UI
     {
         [Header("UI References")] 
         [SerializeField] private GameObject partItemPrefab;
-        [SerializeField] private Transform partGridContent; 
-        [SerializeField] private GridLayoutGroup Grid;
+        [SerializeField] private RectTransform partGridContent;
+        [SerializeField] private GridLayoutGroup grid;
 
         [Header("Data")]
         public PartSpriteDatabase spriteDatabase; // для иконок
@@ -49,8 +50,12 @@ namespace UI
                     _spawnedItems.Add(go);
                 }
             }
+            StretchContentPanel();
         }
-        
-        //TODO: make content stretch for items in inventory
+
+        private void StretchContentPanel()
+        {
+            partGridContent.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, grid.preferredHeight);
+        }
     }
 }

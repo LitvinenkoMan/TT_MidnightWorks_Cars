@@ -13,11 +13,11 @@ namespace Systems.Inventory
     {
         public List<CarPart> ownedParts = new();
 
-        public event Action OnPartAdded;
+        public event Action OnInventoryUpdated;
         public event Action OnPlayerEntered;
         public event Action OnPlayerLeave;
 
-        private void Start()
+        private void Awake()
         {
             GameManager.Instance.SaveManager.AddSavableObject(this);
         }
@@ -25,7 +25,30 @@ namespace Systems.Inventory
         public void AddPart(CarPart part)
         {
             ownedParts.Add(part);
-            OnPartAdded?.Invoke();
+            OnInventoryUpdated?.Invoke();
+        }
+
+        public void RemovePart(CarPart part)
+        {
+            ownedParts.Remove(part);
+            OnInventoryUpdated?.Invoke();
+        }
+
+        public void RemoveParts(CarPart part)
+        {
+            ownedParts.ForEach(x =>
+            {
+                if (x.PartType == part.PartType && x.Level == part.Level)
+                {
+                    ownedParts.Remove(x);
+                }
+            });
+            OnInventoryUpdated?.Invoke();
+        }
+
+        public List<CarPart> GetAllParts()
+        {
+            return ownedParts;
         }
 
         public bool CanAssembleCar(int level)
@@ -78,7 +101,7 @@ namespace Systems.Inventory
         public void Load(SaveData data)
         {
             ownedParts = data.ownedParts;
-            OnPartAdded?.Invoke();
+            OnInventoryUpdated?.Invoke();
         }
     }
 }
