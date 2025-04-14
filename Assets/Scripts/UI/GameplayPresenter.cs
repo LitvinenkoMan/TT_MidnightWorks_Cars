@@ -13,6 +13,7 @@ namespace UI
         [SerializeField] private InventorySystem inventory;
         [SerializeField] private ScrapMiner scrapMiner;
         [SerializeField] private SellingTable sellingTable;
+        [SerializeField] private CarAssembler carAssembler;
         
         [Space(10), Header("UI Scripts")]
         [SerializeField] private InventoryUI inventoryUI;
@@ -20,6 +21,7 @@ namespace UI
         [SerializeField] private ScrapMinerUI scrapMinerUI;
         [SerializeField] private MarketUI marketUI;
         [SerializeField] private FollowWorldTargetUI browserButton;
+        [SerializeField] private FollowWorldTargetUI carAssemblerUI;
 
         [Space(15), Header("Data")] 
         [SerializeField] private PartSpriteDatabase spriteDatabase;
@@ -32,6 +34,9 @@ namespace UI
 
             sellingTable.OnPlayerEntered += ShowBrowser;
             sellingTable.OnPlayerLeave += HideBrowser;
+
+            carAssembler.OnPlayerEntered += ShowAssembler;
+            carAssembler.OnPlayerLeave += HideAssembler;
             
             scrapMiner.OnPlayerEntered += ShowScrapsMinerWindow;
             scrapMiner.OnPlayerLeave += HideScrapsMinerWindow;
@@ -46,6 +51,9 @@ namespace UI
 
             sellingTable.OnPlayerEntered -= ShowBrowser;
             sellingTable.OnPlayerLeave -= HideBrowser;
+
+            carAssembler.OnPlayerEntered -= ShowAssembler;
+            carAssembler.OnPlayerLeave -= HideAssembler;
             
             scrapMiner.OnPlayerEntered -= ShowScrapsMinerWindow;
             scrapMiner.OnPlayerLeave -= HideScrapsMinerWindow;
@@ -74,6 +82,21 @@ namespace UI
         {
             marketUI.SetActive(true);
             marketUI.RenderSellingItems();
+        }
+
+        public void AssembleCar(int level)
+        {
+            carAssembler.TryAssembleCar(level);
+        }
+
+        private void ShowAssembler()
+        {
+            carAssemblerUI.SetActive(true);
+        }
+
+        private void HideAssembler()
+        {
+            carAssemblerUI.SetActive(false);
         }
 
         private void ShowBrowser()
