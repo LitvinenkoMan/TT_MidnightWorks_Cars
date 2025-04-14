@@ -49,6 +49,7 @@ namespace Core
         public int money;
         public int scraps;
         public List<CarPart> ownedParts;
+        public List<PartCreationTool> creationTools;
         
         
         public SaveData()
@@ -57,7 +58,7 @@ namespace Core
             scraps = 0;
             ownedParts = new List<CarPart>();
         }
-
+        
         public SaveData(int money, int scraps)
         {
             this.money = money;

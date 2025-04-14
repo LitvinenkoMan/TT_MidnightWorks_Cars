@@ -1,10 +1,8 @@
-using System;
-using Core;
+using Assets.Scripts.Common;
 using Data;
 using Systems.CarAssemble;
 using Systems.Economy;
 using Systems.Inventory;
-using TMPro;
 using UnityEngine;
 
 namespace UI
@@ -14,11 +12,14 @@ namespace UI
         [Space(10), Header("Logic Scripts")]
         [SerializeField] private InventorySystem inventory;
         [SerializeField] private ScrapMiner scrapMiner;
+        [SerializeField] private SellingTable sellingTable;
         
         [Space(10), Header("UI Scripts")]
         [SerializeField] private InventoryUI inventoryUI;
         [SerializeField] private CreationToolUI creationToolUI;
         [SerializeField] private ScrapMinerUI scrapMinerUI;
+        [SerializeField] private MarketUI marketUI;
+        [SerializeField] private FollowWorldTargetUI browserButton;
 
         [Space(15), Header("Data")] 
         [SerializeField] private PartSpriteDatabase spriteDatabase;
@@ -28,6 +29,9 @@ namespace UI
             inventory.OnInventoryUpdated += UpdateInventoryUI;
             inventory.OnPlayerEntered += ShowInventoryWindow;
             inventory.OnPlayerLeave += HideInventoryWindow;
+
+            sellingTable.OnPlayerEntered += ShowBrowser;
+            sellingTable.OnPlayerLeave += HideBrowser;
             
             scrapMiner.OnPlayerEntered += ShowScrapsMinerWindow;
             scrapMiner.OnPlayerLeave += HideScrapsMinerWindow;
@@ -39,6 +43,9 @@ namespace UI
             inventory.OnInventoryUpdated -= UpdateInventoryUI;
             inventory.OnPlayerEntered -= ShowInventoryWindow;
             inventory.OnPlayerLeave -= HideInventoryWindow;
+
+            sellingTable.OnPlayerEntered -= ShowBrowser;
+            sellingTable.OnPlayerLeave -= HideBrowser;
             
             scrapMiner.OnPlayerEntered -= ShowScrapsMinerWindow;
             scrapMiner.OnPlayerLeave -= HideScrapsMinerWindow;
@@ -61,6 +68,22 @@ namespace UI
         public void EarnScraps()
         {
             scrapMiner.EarnScraps();
+        }
+
+        public void ShowMarket()
+        {
+            marketUI.SetActive(true);
+            marketUI.RenderSellingItems();
+        }
+
+        private void ShowBrowser()
+        {
+            browserButton.SetActive(true);
+        }
+
+        private void HideBrowser()
+        {
+            browserButton.SetActive(false);
         }
 
         private void UpdateInventoryUI()

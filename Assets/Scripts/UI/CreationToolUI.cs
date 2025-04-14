@@ -13,6 +13,8 @@ namespace UI
         [SerializeField] private Image icon;
         [SerializeField] private TMP_Text levelText;
         [SerializeField] private TMP_Text levelUpgradeText;
+        [SerializeField] private TMP_Text creationCostText;
+        [SerializeField] private TMP_Text upgradeCostText;
         
         [SerializeField] private Button createPartButton;
         [SerializeField] private Button upgradeButton;
@@ -36,6 +38,9 @@ namespace UI
         {
             levelText.text = $"Lv. {_currentCreationTool.PartLevelCreation}";
             levelUpgradeText.text = $"Lv. {_currentCreationTool.PartLevelCreation +1}";
+
+            creationCostText.text = $"{_currentCreationTool.CreationCost}";
+            upgradeCostText.text = $"{_currentCreationTool.UpgradeCost}";
         }
     }
 }

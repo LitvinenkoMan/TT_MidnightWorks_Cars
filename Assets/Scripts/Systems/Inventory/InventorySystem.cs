@@ -36,13 +36,7 @@ namespace Systems.Inventory
 
         public void RemoveParts(CarPart part)
         {
-            ownedParts.ForEach(x =>
-            {
-                if (x.PartType == part.PartType && x.Level == part.Level)
-                {
-                    ownedParts.Remove(x);
-                }
-            });
+            ownedParts.RemoveAll(p => p.PartType == part.PartType && p.Level == part.Level);
             OnInventoryUpdated?.Invoke();
         }
 
